@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" name="" id="user">
+    <input type="password" name="" id="pass">
+    <input type="button" value="Click" id="btnTest">
+
+    <script>
+       var user = document.getElementById('user');
+       var pass = document.getElementById('pass');
+       var btn = document.getElementById('btnTest');
+        
+       btn.onclick = ()=>
+        {
+           var xhr = new XMLHttpRequest();
+           xhr.onreadystatechange = function()
+           {
+               if(this.readyState == 4 && this.status == 200)
+               {
+                   var data = JSON.parse(this.responseText)
+                   for(var d = 0; d < data.length; d++)
+                   {
+                       user.value = data[d].u;
+                       pass.value = data[d].p;
+                   }
+               }
+           }
+            xhr.open('POST', 'index.php', true)
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send("user=" + user.value + "&pass=" + pass.value);
+
+        }
+    </script>
+</body>
+</html>
