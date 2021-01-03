@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <input type="text" name="" id="user">
+    <input type="password" name="" id="pass">
+    <input type="button" value="Click" id="btnTest">
+
+    <script>
+        $('#user').keyup(()=>
+        {
+            console.log($('#user').val())
+        })
+
+        $('#pass').keyup(()=>
+        {
+            console.log($('#pass').val())
+        })
+        
+        $('#btnTest').click(()=>
+        {
+            $.ajax({
+                type: "POST",
+                url: "index.php",
+                data: {user: $('#user').val(), pass: $('#pass').val()},
+                cache: false,
+                success: function(data){
+                    for(var d = 0; d < data.length; d++)
+                    {
+                        $('#user').val(data[d].u);
+                        $('#pass').val(data[d].p);
+                    }
+                }
+                });
+        })
+    </script>
+</body>
+</html>
